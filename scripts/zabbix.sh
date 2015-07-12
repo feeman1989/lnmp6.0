@@ -25,7 +25,6 @@ EOF
     \cp -rf frontends/php $Web_Dir/zabbix
     chown -R nginx.nginx $Web_Dir/zabbix
     chmod -R 755 $Web_Dir/zabbix
-    \cp -rf $PWD_Dir/../conf/zabbix.conf /usr/local/nginx/conf/
 	\cp -rf $PWD_Dir/../init.d/{zabbix_server,zabbix_agentd} /etc/init.d/
 	#sed -i "s@^ZABBIX_BIN=.*@ZABBIX_BIN=\"/usr/local/zabbix/sbin/zabbix_agentd\"@" /etc/init.d/zabbix_agentd
 	#sed -i "s@^ZABBIX_BIN=.*@ZABBIX_BIN=\"/usr/local/zabbix/sbin/zabbix_server\"@" /etc/init.d/zabbix_server
