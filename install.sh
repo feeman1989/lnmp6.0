@@ -73,6 +73,7 @@ Install_PHP(){
     sed -i 's/; cgi.fix_pathinfo=0/cgi.fix_pathinfo=0/g' /usr/local/php/etc/php.ini
     sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /usr/local/php/etc/php.ini
     sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /usr/local/php/etc/php.ini
+	sed -i 's/max_input_time = 60/max_input_time = 300/g' /usr/local/php/etc/php.ini
 	\cp -f $PWD_Dir/init.d/php-fpm /etc/init.d/
 
 }
