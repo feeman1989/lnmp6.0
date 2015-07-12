@@ -15,9 +15,9 @@ EOF
     mysql -uroot -p zabbix < images.sql
     mysql -uroot -p zabbix < data.sql
     ln -sf /usr/local/zabbix/etc/ etc/zabbix
-    cp -rf frontends/php /data/webapp
-    chown -R nginx.nginx /data/webapp
-    chmod -R 755 /data/webapp
-    cp -rf $PWD_Dir/conf/zabbix.conf /usr/local/nginx/conf/
+    cp -rf frontends/php /data/webapp/nginx
+    chown -R nginx.nginx /data/webapp/nginx
+    chmod -R 755 /data/webapp/nginx
+    cp -rf $PWD_Dir/../conf/zabbix.conf /usr/local/nginx/conf/
 }
 
