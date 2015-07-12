@@ -1,6 +1,14 @@
 #!/bin/bash
-source $(cd `basedir $0`;pwd)/globalvars.sh
-source $(cd `basedir $0`;pwd)/globalfuncs.sh
+PWD_Dir=$(cd $(dirname $0);pwd)
+source $PWD_Dir/globalvars.sh
+Tar_Cd(){
+	local FileName=$1
+	local DirName=$2
+	cd $PWD_Dir/packets
+	[[ -d $DirName ]] && rm -rf $DirName
+	tar zxvf $FileName
+	cd $DirName
+}
 Install_PCRE(){
 	Tar_Cd ${PCRE_Ver}.tar.gz $PCRE_Ver
     ./configure

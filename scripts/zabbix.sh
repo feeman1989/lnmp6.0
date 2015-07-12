@@ -1,6 +1,14 @@
 #!/bin/bash
-source $PWD_Dir/globalfuncs.sh
-source $PWD_Dir/globalvars.sh
+PWD_Dir=$(cd `dirname $0`;pwd)
+source $PWD_Dir/../globalvars.sh
+Tar_Cd(){
+	local FileName=$1
+	local DirName=$2
+	cd $PWD_Dir/../packets
+	[[ -d $DirName ]] && rm -rf $DirName
+	tar zxvf $FileName
+	cd $DirName
+}
 Install_Zabbix(){
     useradd zabbix -s /sbin/nologin
     Tar_Cd ${Zabbix_Ver}.tar.gz $Zabbix_Ver
@@ -14,12 +22,11 @@ EOF
     mysql -uroot -pnew-password zabbix < database/mysql/images.sql
     mysql -uroot -pnew-password zabbix < database/mysql/data.sql
     ln -sf /usr/local/zabbix/etc/ etc/zabbix
-<<<<<<< HEAD
-    \cp -rf frontends/php /data/webapp/zabbix
-    chown -R nginx.nginx /data/webapp/zabbix
-    chmod -R 755 /data/webapp/zabbix
-    \cp -rf $PWD_Dir/conf/zabbix.conf /usr/local/nginx/conf/
-	\cp -rf /{zabbix_server,zabbix_agentd} /etc/init.d/
+    \cp -rf frontends/php $Web_Dir/zabbix
+    chown -R nginx.nginx $Web_Dir/zabbix
+    chmod -R 755 $Web_Dir/zabbix
+    \cp -rf $PWD_Dir/../conf/zabbix.conf /usr/local/nginx/conf/
+	\cp -rf $PWD_Dir/../init.d/{zabbix_server,zabbix_agentd} /etc/init.d/
 	#sed -i "s@^ZABBIX_BIN=.*@ZABBIX_BIN=\"/usr/local/zabbix/sbin/zabbix_agentd\"@" /etc/init.d/zabbix_agentd
 	#sed -i "s@^ZABBIX_BIN=.*@ZABBIX_BIN=\"/usr/local/zabbix/sbin/zabbix_server\"@" /etc/init.d/zabbix_server
 	#sed -i "/^ZABBIX_BIN=.*/ a\ZABBIX_CONFIG=\"/usr/local/zabbix/etc/zabbix_server.conf\"" /etc/init.d/zabbix_server
@@ -30,13 +37,7 @@ EOF
 	echo "zabbix-trapper 10051/tcp # Zabbix Trapper" >> /etc/services
 	echo "zabbix-trapper 10051/udp # Zabbix Trapper" >> /etc/services
 	
-	
  
-=======
-    cp -rf frontends/php /data/webapp/nginx
-    chown -R nginx.nginx /data/webapp/nginx
-    chmod -R 755 /data/webapp/nginx
-    cp -rf $PWD_Dir/../conf/zabbix.conf /usr/local/nginx/conf/
->>>>>>> 85ff82cde9ce0b8d0484b33d73fde3fd4b25f1cc
+
 }
 

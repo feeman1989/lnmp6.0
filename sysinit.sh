@@ -1,5 +1,6 @@
 #!/bin/bash
 #initialize system
+PWD_Dir=$(cd `dirname $0`;pwd)
 if [ -z $1 ];then
 echo "`basename $0` hostname"
 exit 0
@@ -14,5 +15,5 @@ setenforce 0
 #ulimit
 echo 'ulimit -SHn 102400' >> /etc/profile
 #kernel optimize
-cp -rf ./conf/sysctl.conf /etc/
+cp -rf $PWD_Dir/conf/sysctl.conf /etc/
 sysctl -p
