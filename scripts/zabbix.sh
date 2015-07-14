@@ -1,10 +1,10 @@
 #!/bin/bash
-PWD_Dir=$(cd `dirname $0`;pwd)
-source $PWD_Dir/../globalvars.sh
+PAR_Dir=$(cd `dirname $0`;cd ..;pwd)
+source $PAR_Dir/globalvars.sh
 Tar_Cd(){
 	local FileName=$1
 	local DirName=$2
-	cd $PWD_Dir/../packets
+	cd $PAR_Dir/packets
 	[[ -d $DirName ]] && rm -rf $DirName
 	tar zxvf $FileName
 	cd $DirName
@@ -25,7 +25,7 @@ EOF
     \cp -rf frontends/php $Web_Dir/zabbix
     chown -R nginx.nginx $Web_Dir/zabbix
     chmod -R 755 $Web_Dir/zabbix
-	\cp -rf $PWD_Dir/../init.d/{zabbix_server,zabbix_agentd} /etc/init.d/
+	\cp -rf $PAR_Dir/init.d/{zabbix_server,zabbix_agentd} /etc/init.d/
 	#sed -i "s@^ZABBIX_BIN=.*@ZABBIX_BIN=\"/usr/local/zabbix/sbin/zabbix_agentd\"@" /etc/init.d/zabbix_agentd
 	#sed -i "s@^ZABBIX_BIN=.*@ZABBIX_BIN=\"/usr/local/zabbix/sbin/zabbix_server\"@" /etc/init.d/zabbix_server
 	#sed -i "/^ZABBIX_BIN=.*/ a\ZABBIX_CONFIG=\"/usr/local/zabbix/etc/zabbix_server.conf\"" /etc/init.d/zabbix_server
@@ -35,8 +35,5 @@ EOF
 	echo "zabbix-agent 10050/udp # Zabbix Agent" >> /etc/services
 	echo "zabbix-trapper 10051/tcp # Zabbix Trapper" >> /etc/services
 	echo "zabbix-trapper 10051/udp # Zabbix Trapper" >> /etc/services
-	
- 
-
 }
 
