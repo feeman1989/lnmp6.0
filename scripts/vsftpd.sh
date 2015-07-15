@@ -1,6 +1,6 @@
 #!/bin/bash
-PWD_Dir=$(cd `dirname $0`;pwd)
-source $PWD_Dir/../globalvars.sh
+PAR_Dir=$(cd `dirname $0`;cd ..;pwd)
+source $PAR_Dir/globalvars.sh
 Vsftp_Roles_Dir='/etc/vsftpd/roles'
 Install_Vsftp(){
     /etc/init.d/vsftpd stop
@@ -10,7 +10,7 @@ Install_Vsftp(){
     useradd -s /sbin/nologin vftp -d $Vsftp_Dir
     chmod 700 $Vsftp_Dir
     test -f /etc/vsftpd/vsftpd.conf && mv /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.old
-    \cp -rf $PWD_Dir/../conf/vsftpd.conf /etc/vsftpd/
+    \cp -rf $PAR_Dir/../conf/vsftpd.conf /etc/vsftpd/
     cat > /etc/vsftpd/accounts << EOF
     ftpdata
     123

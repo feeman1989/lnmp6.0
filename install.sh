@@ -1,14 +1,8 @@
 #!/bin/bash
 PWD_Dir=$(cd $(dirname $0);pwd)
+PAR_Dir=$PWD_Dir
 source $PWD_Dir/globalvars.sh
-Tar_Cd(){
-	local FileName=$1
-	local DirName=$2
-	cd $PWD_Dir/packets
-	[[ -d $DirName ]] && rm -rf $DirName
-	tar zxvf $FileName
-	cd $DirName
-}
+source $PWD_Dir/globalfuncs.sh
 Install_PCRE(){
 	Tar_Cd ${PCRE_Ver}.tar.gz $PCRE_Ver
     ./configure
@@ -52,7 +46,9 @@ Install_Mysql(){
     ln -sf /usr/local/mysql/lib/mysql /usr/lib/mysql
     ln -sf /usr/local/mysql/include/mysql /usr/include/mysql
 	/etc/init.d/mysqld start
-	/usr/local/mysql/bin/mysqladmin -u root password 'new-password'
+	MysqlRootPassword=`openssl rand -base64 8`
+	echo $MysqlRootPassword > $PWD_Dir/mysqlrootpassword.txt
+	/usr/local/mysql/bin/mysqladmin -u root password $MysqlRootPassword
 }
 
 Install_PHP(){
@@ -62,7 +58,7 @@ Install_PHP(){
         --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-iconv-dir --with-freetype-dir \
         --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir --enable-xml --disable-rpath --enable-bcmath \
         --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --enable-mbregex --enable-mbstring \
-        --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets\
+        --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets \
         --with-xmlrpc --enable-zip --enable-soap --with-gettext --disable-fileinfo --enable-opcache
     make ZEND_EXTRA_LIBS='-liconv'
     make install
