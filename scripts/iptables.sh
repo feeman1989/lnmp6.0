@@ -13,5 +13,4 @@ $IPTABLES -t filter -P FORWARD DROP
 $IPTABLES -t filter -A INPUT -i lo -j ACCEPT
 $IPTABLES -t filter -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 $IPTABLES -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
-$IPTABLES -t filter -A INPUT -j REJECT --reject-with icmp-host-prohibited
 /etc/init.d/iptables save
