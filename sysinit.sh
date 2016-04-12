@@ -16,7 +16,7 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 setenforce 0
 
 # 设置ULIMIT
-echo 'ulimit -SHn 102400' >> /etc/profile
+echo 'ulimit -SHn 65535' >> /etc/profile
 
 # 设置历史记录
 echo 'HISTSIZE=500' >> /etc/profile
@@ -24,5 +24,4 @@ echo 'HISTSIZE=500' >> /etc/profile
 # 设置内核
 cp -rf $CUR_DIR/conf/sysctl.conf /etc/
 sysctl -p
-
-# 配置WIMRC
+ 
